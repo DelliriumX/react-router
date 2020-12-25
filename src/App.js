@@ -28,11 +28,7 @@ class App extends Component {
     return (
       <div className="App">
         <div id="menu">
-          <a href="/home" onClick={(event) => {
-            event.preventDefault()
-            window.history.pushState({}, '', '/home')
-            this.setPage('home')
-          }}>Home</a>
+          <a href="/home" onClick={() => { this.setPage('home') }}>Home</a>
           <a href="/about" onClick={() => this.setPage('about')}>About</a>
           <a href="/contact" onClick={() => this.setPage('contact')}>Contact</a>
         </div>
