@@ -1,25 +1,47 @@
-import logo from './logo.svg';
+import React, { Component } from 'react'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import HomePage from './pages/Home'
+import AboutPage from './pages/About'
+import ContactPage from './pages/Contact'
+
+class App extends Component {
+  state = {
+    page: 'about'
+  }
+
+  setPage = (page) => this.setState({ page: page })
+
+  getCurrentPage = () => {
+    switch (this.state.page) {
+      case 'about':
+        return <AboutPage></AboutPage>
+      case 'contact':
+        return <ContactPage></ContactPage>
+      case 'home':
+      default:
+        return <HomePage></HomePage>
+    }
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <div id="menu">
+          <a href="/home" onClick={(event) => {
+            event.preventDefault()
+            window.history.pushState({}, '', '/home')
+            this.setPage('home')
+          }}>Home</a>
+          <a href="/about" onClick={() => this.setPage('about')}>About</a>
+          <a href="/contact" onClick={() => this.setPage('contact')}>Contact</a>
+        </div>
+        <div id="content">
+          {this.getCurrentPage()}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
